@@ -57,7 +57,9 @@ namespace OstaPaint
                 pictureBox1.Update();
                 shapePoints[1] = e.Location;
                 isDraw = true;
+                return;
             }
+
             if (editorMode && (e.Button == MouseButtons.Right))
             {
                 isMove = true;
@@ -165,6 +167,7 @@ namespace OstaPaint
                     pictureBox1.Update();
                     return;
                 }
+
                 shapePoints[1] = e.Location;
                 pictureBox1.Invalidate();
                 pictureBox1.Update();
@@ -181,7 +184,7 @@ namespace OstaPaint
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (isDraw)
+            if (isDraw && !editorMode)
             {
                 shape.draw(drawField);
                 pictureBox1.Image = canvas;
