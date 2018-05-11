@@ -1,0 +1,5 @@
+C:\Users\User\Desktop\MyPaint\OstFigures\OstFigures\bin\Debug\OstFigures.dll
+C:\Users\User\Desktop\MyPaint\OstFigures\OstFigures\bin\Debug\OstFigures.pdb
+C:\Users\User\Desktop\MyPaint\OstFigures\OstFigures\obj\Debug\OstFigures.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\MyPaint\OstFigures\OstFigures\obj\Debug\OstFigures.dll
+C:\Users\User\Desktop\MyPaint\OstFigures\OstFigures\obj\Debug\OstFigures.pdb
