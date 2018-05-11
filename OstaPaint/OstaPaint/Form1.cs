@@ -25,6 +25,7 @@ namespace OstaPaint
         private Point offset;
 
         bool isDraw = false;
+        bool isMove = false;
         Shape shape;
         Point[] shapePoints = new Point[2];
         Graphics drawField;
@@ -59,15 +60,16 @@ namespace OstaPaint
             }
             if (editorMode && (e.Button == MouseButtons.Right))
             {
+                isMove = true;
                 shape.First = figures.Last().First;
                 figures.Remove(figures.Last());
                 RefreshCanvas();
                 pictureBox1.Invalidate();
                 pictureBox1.Update();
-                offset.X = shape.First.X - e.X;
-                offset.Y = shape.First.Y - e.Y;
+                offset.X = e.X - shape.First.X;
+                offset.Y = e.Y - shape.First.Y;
 
-                shapePoints[0] = e.Location;
+                shapePoints[0] = new Point(shape.First.X + offset.X, shape.First.Y + offset.Y);
                 shapePoints[1] = new Point(shape.Last.X + offset.X, shape.Last.Y + offset.Y);
 
                 /*shape.First = figures.Last().First;
@@ -142,7 +144,7 @@ namespace OstaPaint
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             label1.Text = string.Format("X: {0} Y: {1}", e.X, e.Y);
-            if (isDraw)
+            if (isDraw && !editorMode)
             {
                 shapePoints[1] = e.Location;
                 pictureBox1.Invalidate();
@@ -151,8 +153,14 @@ namespace OstaPaint
 
             if (editorMode)
             {
-                if (e.Button == MouseButtons.Right)
+                if (isMove)
                 {
+                    offset.X = e.X - shapePoints[0].X;
+                    offset.Y = e.Y - shapePoints[0].Y;
+
+                    shapePoints[0] = new Point(shapePoints[0].X + offset.X, shapePoints[0].Y + offset.Y);
+                    shapePoints[1] = new Point(shapePoints[1].X + offset.X, shapePoints[1].Y + offset.Y);
+
                     pictureBox1.Invalidate();
                     pictureBox1.Update();
                     return;
@@ -189,6 +197,10 @@ namespace OstaPaint
                 pictureBox1.Image = canvas;
                 figures.Add(shape);
                 isDraw = false;
+                if (isMove)
+                {
+                    isMove = false;
+                }
                 return;
             }
         }
@@ -217,6 +229,8 @@ namespace OstaPaint
                 else
                 {
                     shape = figures.Last();
+                    numericUpDown1.Value = shape.Width;
+                    colorDialog1.Color = shape.color;
                 }
             }
         }
