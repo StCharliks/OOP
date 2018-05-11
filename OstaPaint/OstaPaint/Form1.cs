@@ -232,8 +232,8 @@ namespace OstaPaint
                 else
                 {
                     shape = figures.Last();
-                    numericUpDown1.Value = shape.Width;
-                    colorDialog1.Color = shape.color;
+                    pen.Width = shape.Width;
+                    pen.Color = shape.color;
                 }
             }
         }
@@ -247,6 +247,8 @@ namespace OstaPaint
                 pictureBox1.Invalidate();
                 RefreshCanvas();
                 shape = figures.Last();
+                pen.Width = shape.Width;
+                pen.Color = shape.color;
             }
         }
 
