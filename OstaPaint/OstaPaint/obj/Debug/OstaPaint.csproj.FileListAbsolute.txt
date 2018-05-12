@@ -1,9 +1,0 @@
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\bin\Debug\OstaPaint.exe.config
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\bin\Debug\OstaPaint.exe
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\bin\Debug\OstaPaint.pdb
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.Form1.resources
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.Properties.Resources.resources
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.csproj.GenerateResource.Cache
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.exe
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.pdb
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\bin\Debug\OstaPaint.XML
