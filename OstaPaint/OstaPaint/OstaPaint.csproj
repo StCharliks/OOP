@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\BinarySerializer.cs" />
+    <Compile Include="Controls\PlaginConnection.cs" />
     <Compile Include="Controls\serializerJSON.cs" />
     <Compile Include="Controls\ShapeFactory.cs" />
     <Compile Include="Form1.cs">

@@ -49,6 +49,8 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.OpenButton = new System.Windows.Forms.Button();
             this.choseModeButton = new System.Windows.Forms.Button();
+            this.PluginBox = new System.Windows.Forms.ListBox();
+            this.addPlagin_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -82,7 +84,7 @@
             this.ColorButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1105, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1310, 27);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -134,6 +136,7 @@
             this.CircleButton.Name = "CircleButton";
             this.CircleButton.Size = new System.Drawing.Size(24, 24);
             this.CircleButton.Text = "Circle";
+            this.CircleButton.Click += new System.EventHandler(this.CircleButton_Click);
             // 
             // triangleButton
             // 
@@ -259,11 +262,33 @@
             this.choseModeButton.UseVisualStyleBackColor = true;
             this.choseModeButton.Click += new System.EventHandler(this.choseModeButton_Click);
             // 
+            // PluginBox
+            // 
+            this.PluginBox.FormattingEnabled = true;
+            this.PluginBox.ItemHeight = 16;
+            this.PluginBox.Location = new System.Drawing.Point(1111, 85);
+            this.PluginBox.Name = "PluginBox";
+            this.PluginBox.Size = new System.Drawing.Size(199, 196);
+            this.PluginBox.TabIndex = 10;
+            this.PluginBox.Click += new System.EventHandler(this.PluginBox_Click);
+            // 
+            // addPlagin_button
+            // 
+            this.addPlagin_button.Location = new System.Drawing.Point(1151, 12);
+            this.addPlagin_button.Name = "addPlagin_button";
+            this.addPlagin_button.Size = new System.Drawing.Size(109, 53);
+            this.addPlagin_button.TabIndex = 11;
+            this.addPlagin_button.Text = "Подлючиь плагин";
+            this.addPlagin_button.UseVisualStyleBackColor = true;
+            this.addPlagin_button.Click += new System.EventHandler(this.addPlagin_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1105, 613);
+            this.ClientSize = new System.Drawing.Size(1310, 613);
+            this.Controls.Add(this.addPlagin_button);
+            this.Controls.Add(this.PluginBox);
             this.Controls.Add(this.choseModeButton);
             this.Controls.Add(this.OpenButton);
             this.Controls.Add(this.SaveButton);
@@ -307,6 +332,8 @@
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button OpenButton;
         private System.Windows.Forms.Button choseModeButton;
+        private System.Windows.Forms.ListBox PluginBox;
+        private System.Windows.Forms.Button addPlagin_button;
     }
 }
 

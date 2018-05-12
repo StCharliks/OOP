@@ -23,9 +23,11 @@ namespace OstaPaint
         private Items Item = Items.Line;
         private bool editorMode = false;
         private Point offset;
+        private PlaginConnection Plagins = new PlaginConnection();
 
         bool isDraw = false;
         bool isMove = false;
+
         Shape shape;
         Point[] shapePoints = new Point[2];
         Graphics drawField;
@@ -35,7 +37,6 @@ namespace OstaPaint
         {
             InitializeComponent();
             figuresFactory = null;
-            //shape = figuresFactory.Create();
 
             canvas = new Bitmap(pictureBox1.ClientRectangle.Width, pictureBox1.ClientRectangle.Height);
             pictureBox1.Image = canvas;
@@ -46,9 +47,6 @@ namespace OstaPaint
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (figuresFactory == null)
-                return;
-
             if (editorMode && (e.Button == MouseButtons.Left)) {
                 shape.First = figures.Last().First;
                 figures.Remove(figures.Last());
@@ -73,39 +71,31 @@ namespace OstaPaint
 
                 shapePoints[0] = new Point(shape.First.X + offset.X, shape.First.Y + offset.Y);
                 shapePoints[1] = new Point(shape.Last.X + offset.X, shape.Last.Y + offset.Y);
-
-                /*shape.First = figures.Last().First;
-                figures.Remove(figures.Last());
-                RefreshCanvas();
-                pictureBox1.Invalidate();
-                pictureBox1.Update();*/
                 isDraw = true;
             }
             else { 
                 isDraw = true;
                 shapePoints[0] = e.Location;
-                shape = figuresFactory.Create();
+                if (figuresFactory != null)
+                    shape = figuresFactory.Create();
             }
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
+            if (shape == null)
+            {
+                return;
+            }
+
             if (isDraw)
             {
-                //e.Graphics.DrawImage(canvas, 0, 0);
-                //pictureBox1.Invalidate();
                 shape.First = shapePoints[0];
                 shape.Last = shapePoints[1];
                 shape.color = pen.Color;
                 shape.Width = (int)pen.Width;
                 shape.tempDraw(sender, e);     
             }
-
-           /* if (editorMode)
-            {
-                shape.Last = shapePoints[1];
-                shape.tempDraw(sender, e);
-            }*/
         }
 
         private void ColorButton_Click(object sender, EventArgs e)
@@ -146,14 +136,14 @@ namespace OstaPaint
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             label1.Text = string.Format("X: {0} Y: {1}", e.X, e.Y);
-            if (isDraw && !editorMode)
+            if (isDraw && !editorMode && (shape != null))
             {
                 shapePoints[1] = e.Location;
                 pictureBox1.Invalidate();
                 pictureBox1.Update();
             }
 
-            if (editorMode)
+            if (editorMode && (shape != null))
             {
                 if (isMove)
                 {
@@ -184,13 +174,17 @@ namespace OstaPaint
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+            if (shape == null)
+            {
+                return;
+            }
+
             if (isDraw && !editorMode)
             {
                 shape.draw(drawField);
                 pictureBox1.Image = canvas;
                 figures.Add(shape);
                 isDraw = false;
-                //shape = null;
                 return;
             }
 
@@ -262,11 +256,6 @@ namespace OstaPaint
                 serializer = serializerJSON.getInstance(dialog.FileName);
                 serializer.serialise(figures);
             }
-            /*if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                serializer = serializerJSON.getInstance(saveFileDialog.FileName);
-                serializer.serialise(figures);
-            }*/
         }
 
         private void LineButton_Click(object sender, EventArgs e)
@@ -292,6 +281,11 @@ namespace OstaPaint
         private void triangleButton_Click(object sender, EventArgs e)
         {
             figuresFactory = new TriangleFactory();
+        }
+
+        private void CircleButton_Click(object sender, EventArgs e)
+        {
+            figuresFactory = new CircleFactory();
         }
 
         private void OpenButton_Click(object sender, EventArgs e)
@@ -321,6 +315,10 @@ namespace OstaPaint
 
         private void choseModeButton_Click(object sender, EventArgs e)
         {
+            if (shape == null)
+            {
+                return;
+            }
             editorMode = !editorMode;
 
             if (editorMode)
@@ -331,6 +329,27 @@ namespace OstaPaint
             {
                 choseModeButton.Text = "Редактировать";
             }
+        }
+
+        private void addPlagin_button_Click(object sender, EventArgs e)
+        {
+            Plagins.getDllPath();
+            Plagins.LoadPlugin(Plagins.dllPath);
+
+            foreach (Type t in Plagins.Plagins)
+            {
+                if (!PluginBox.Items.Contains(t.ToString()))
+                {
+                    PluginBox.Items.Add(t.ToString());
+                    serializer.KnownTypes = t;
+                }
+            }
+        }
+
+        private void PluginBox_Click(object sender, EventArgs e)
+        {
+            shape = Plagins.CreateInstance(PluginBox.SelectedIndex);
+            figuresFactory = null;
         }
     }
 }

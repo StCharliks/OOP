@@ -7,4 +7,3 @@ C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.csproj.Gen
 C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.exe
 C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.pdb
 C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\bin\Debug\OstaPaint.XML
-C:\Users\User\Desktop\MyPaint\OstaPaint\OstaPaint\obj\Debug\OstaPaint.csprojResolveAssemblyReference.cache

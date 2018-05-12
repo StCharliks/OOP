@@ -220,7 +220,7 @@ namespace OstFigures
             e.Graphics.DrawRectangle(new Pen(color, Width), leftCorner.X, leftCorner.Y, Math.Abs(rigthCorner.X - leftCorner.X), Math.Abs(rigthCorner.Y - leftCorner.Y));
         }
 
-        private Point CornerCorrection(Point left, Point rigth)
+        protected Point CornerCorrection(Point left, Point rigth)
         {
             int distance = (int)Math.Round(Math.Sqrt(Math.Pow(left.X - rigth.X, 2) + Math.Pow(left.Y - rigth.Y, 2)));
             int offset = (int)Math.Round(distance / Math.Sqrt(2));
@@ -231,7 +231,7 @@ namespace OstFigures
             return new Point(left.X + offsetX, left.Y + offsetY);
         }
 
-        private int returnOffset(Point left, Point rigth)
+        protected int returnOffset(Point left, Point rigth)
         {
             int distance = (int)Math.Round(Math.Sqrt(Math.Pow(left.X - rigth.X, 2) + Math.Pow(left.Y - rigth.Y, 2)));
             return (int)Math.Round(Math.Sqrt(distance));
@@ -255,11 +255,36 @@ namespace OstFigures
     }
 
     [DataContract]
-    public class Circle : Shape, iPlagin
+    public class Circle : Square, iPlagin
     {
         public override void draw(Graphics canvas)
         {
+            canvas.DrawEllipse(new Pen(color, Width), LeftCorner.X, LeftCorner.Y, Math.Abs(RigthCorner.X - LeftCorner.X), Math.Abs(RigthCorner.Y - LeftCorner.Y));
+        }
 
+        public override void tempDraw(object sender, PaintEventArgs e)
+        {
+            Last = CornerCorrection(First, Last);
+            LeftCorner = getHighLeftCorner(First, Last);
+            RigthCorner = getBottomRightCorner(First, Last);
+            e.Graphics.DrawEllipse(new Pen(color, Width), LeftCorner.X, LeftCorner.Y, Math.Abs(RigthCorner.X - LeftCorner.X), Math.Abs(RigthCorner.Y - LeftCorner.Y));
+        }
+
+        private Point CornerCorrection(Point left, Point rigth)
+        {
+            int distance = (int)Math.Round(Math.Sqrt(Math.Pow(left.X - rigth.X, 2) + Math.Pow(left.Y - rigth.Y, 2)));
+            int offset = (int)Math.Round(distance / Math.Sqrt(2));
+
+            int offsetX = (left.X < rigth.X) ? offset : -offset;
+            int offsetY = (left.Y < rigth.Y) ? offset : -offset;
+
+            return new Point(left.X + offsetX, left.Y + offsetY);
+        }
+
+        private int returnOffset(Point left, Point rigth)
+        {
+            int distance = (int)Math.Round(Math.Sqrt(Math.Pow(left.X - rigth.X, 2) + Math.Pow(left.Y - rigth.Y, 2)));
+            return (int)Math.Round(Math.Sqrt(distance));
         }
     }
 

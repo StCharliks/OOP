@@ -14,12 +14,22 @@ namespace OstaPaint.Controls
     class serializerJSON
     {
         private Type[] knownTypes = {typeof(Line), typeof(OstFigures.Rectangle), typeof(Ellipce), typeof(Shape), typeof(Square), typeof(Trianle), typeof(Circle) };
+        public Type KnownTypes
+        {
+            set
+            {
+                List<Type> temp = knownTypes.ToList<Type>();
+                temp.Add(value);
+                knownTypes = temp.ToArray<Type>();
+            }
+        }
         private String fileName;
         private static serializerJSON instance;
         private serializerJSON() { }
 
         public static serializerJSON getInstance()
         {
+            
             if (instance == null)
             {
                 instance = new serializerJSON();
